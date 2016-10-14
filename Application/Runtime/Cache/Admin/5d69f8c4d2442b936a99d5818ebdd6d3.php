@@ -1,0 +1,81 @@
+<?php if (!defined('THINK_PATH')) exit();?><!--不需要使用布局模板功能-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台登录界面</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.css">
+    <link rel="stylesheet" href="/Public/bootstrapvalidator/dist/css/bootstrapValidator.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/Public/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
+    <link type="text/css" href="/Public/css/login.css" rel="stylesheet">
+</head>
+<body>
+<form class="form-horizontal" action="<?php echo U('User/index');?>" method="post" id="Form">
+    <div class="top_div"></div>
+    <div style="background: rgb(255, 255, 255); margin: -100px auto auto; border: 1px solid rgb(231, 231, 231); border-image: none; width: 400px; height: 200px;">
+        <div style="width: 165px; height: 96px; position: absolute;">
+            <div class="tou"></div>
+            <div class="initial_left_hand" id="left_hand"></div>
+            <div class="initial_right_hand" id="right_hand"></div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <label for="uname" style="margin-top: 15px;font-size: 14px;" class="col-sm-4  control-label">账号:</label>
+                <div class="col-sm-8">
+                    <input type="text"  name="uname" class="ipt " id="uname"  data-bv-notempty data-bv-notempty-message="账号不能为空" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <label for="pwd" style="margin-top: 15px;font-size: 14px;" class="col-sm-4 control-label">密码:</label>
+                <div class="col-sm-8">
+                    <input type="password" name="pwd" class="ipt " id="pwd"  data-bv-notempty data-bv-notempty-message="密码不能为空" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" style="margin-left: -20px;" class="btn btn-primary btn-block">登录</button>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+<script type="text/javascript">
+    $(function(){
+
+        //得到焦点
+        $("#pwd").focus(function(){
+            $("#left_hand").animate({
+                left: "150",
+                top: " -38"
+            },{step: function(){
+                if(parseInt($("#left_hand").css("left"))>140){
+                    $("#left_hand").attr("class","left_hand");
+                }
+            }}, 2000);
+            $("#right_hand").animate({
+                right: "-64",
+                top: "-38px"
+            },{step: function(){
+                if(parseInt($("#right_hand").css("right"))> -70){
+                    $("#right_hand").attr("class","right_hand");
+                }
+            }}, 2000);
+        });
+        //失去焦点
+        $("#pwd").blur(function(){
+            $("#left_hand").attr("class","initial_left_hand");
+            $("#left_hand").attr("style","left:100px;top:-12px;");
+            $("#right_hand").attr("class","initial_right_hand");
+            $("#right_hand").attr("style","right:-112px;top:-12px");
+        });
+        //验证登录信息
+        $("#Form").bootstrapValidator();
+
+    });
+</script>
+</html>
